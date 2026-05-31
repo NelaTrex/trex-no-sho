@@ -1,0 +1,95 @@
+<form class="{{cssClass}}" autocomplete="off" style="display: flex; flex-direction: column; height: 100%; background: #e6dfcf; padding: 15px; font-family: 'Marcellus', serif; color: #332b22; box-shadow: inset 0 0 20px rgba(0,0,0,0.1);">
+  
+  <header class="sheet-header" style="display: flex; gap: 15px; margin-bottom: 15px; background: rgba(255,255,255,0.4); padding: 10px; border: 1px solid #a89f91; border-radius: 5px;">
+    <img src="{{item.img}}" data-edit="img" title="{{item.name}}" style="width: 72px; height: 72px; object-fit: cover; border: 2px solid #332b22; border-radius: 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); cursor: pointer;"/>
+    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+      <input name="name" type="text" value="{{item.name}}" placeholder="Nome do Item" style="font-size: 26px; font-weight: bold; border: none; border-bottom: 2px solid #5a4f40; background: transparent; color: #1a1510; font-family: 'Kaushan Script', cursive; width: 100%;"/>
+      <div style="font-size: 12px; color: #665c4d; margin-top: 5px; text-transform: uppercase; font-weight: bold;">
+        {{#if isPoder}}Poder / Jutsu{{/if}}{{#if isAptidao}}Aptidão{{/if}}{{#if isEquipamento}}Equipamento{{/if}}{{#if isElemento}}Elemento{{/if}}
+      </div>
+    </div>
+  </header>
+
+  <nav class="sheet-tabs tabs" data-group="primary" style="display: flex; gap: 5px; margin-bottom: 10px; border-bottom: 2px solid #5a4f40; padding-bottom: 2px;">
+    <a class="item" data-tab="caracteristicas" style="font-weight: bold; cursor: pointer; padding: 5px 15px; background: rgba(230, 223, 207, 0.8); border: 1px solid #a89f91; border-bottom: none; border-radius: 5px 5px 0 0; color: #4a3e30; transition: 0.2s;">⚙️ Características</a>
+    {{#if (or isAptidao isElemento)}}
+    <a class="item" data-tab="detalhes" style="font-weight: bold; cursor: pointer; padding: 5px 15px; background: rgba(230, 223, 207, 0.8); border: 1px solid #a89f91; border-bottom: none; border-radius: 5px 5px 0 0; color: #4a3e30; transition: 0.2s;">🔍 Detalhes</a>
+    {{/if}}
+    <a class="item" data-tab="descricao" style="font-weight: bold; cursor: pointer; padding: 5px 15px; background: rgba(230, 223, 207, 0.8); border: 1px solid #a89f91; border-bottom: none; border-radius: 5px 5px 0 0; color: #4a3e30; transition: 0.2s;">📖 Descrição</a>
+  </nav>
+
+  <section class="sheet-body" style="flex: 1; overflow: hidden; background: rgba(245, 240, 230, 0.7); border: 1px solid #a89f91; border-radius: 3px; padding: 15px; box-shadow: 1px 1px 4px rgba(0,0,0,0.1);">
+    
+    <!-- ABA CARACTERÍSTICAS (Sem o display flex direto nela!) -->
+    <div class="tab" data-group="primary" data-tab="caracteristicas" style="height: 100%;">
+      <!-- Esta "caixa de proteção" trata do layout sem interferir com o Foundry -->
+      <div style="display: flex; flex-direction: column; gap: 15px; height: 100%;">
+        {{#if isPoder}}
+        <div style="display: flex; gap: 15px; flex-shrink: 0;">
+          <div style="flex: 1;"><label style="font-weight: bold; font-size: 11px; color: #5a4f40;">TIPO</label><input type="text" name="system.tipo" value="{{system.tipo}}" style="width: 100%; border: 1px solid #b8b0a1; background: rgba(255,255,255,0.5); padding: 6px; border-radius: 3px;"/></div>
+          <div style="flex: 1;"><label style="font-weight: bold; font-size: 11px; color: #5a4f40;">ELEMENTO</label><input type="text" name="system.elemento" value="{{system.elemento}}" style="width: 100%; border: 1px solid #b8b0a1; background: rgba(255,255,255,0.5); padding: 6px; border-radius: 3px;"/></div>
+        </div>
+        <div style="flex-shrink: 0;"><label style="font-weight: bold; font-size: 11px; color: darkred;">CUSTO DE CHAKRA/VITALIDADE</label><input type="text" name="system.custo" value="{{system.custo}}" style="width: 100%; border: 1px solid #c78b8b; background: rgba(250, 230, 230, 0.5); padding: 6px; border-radius: 3px; font-weight: bold; color: darkred;"/></div>
+        {{/if}}
+
+        {{#if isAptidao}}
+        <div style="flex-shrink: 0;"><label style="font-weight: bold; font-size: 11px; color: darkred;">CUSTO DE PODER</label><input type="text" name="system.custo" value="{{system.custo}}" style="width: 100%; border: 1px solid #c78b8b; background: rgba(250, 230, 230, 0.5); padding: 6px; border-radius: 3px; font-weight: bold; color: darkred;"/></div>
+        {{/if}}
+
+        {{#if isElemento}}
+        <div style="display: flex; gap: 15px; flex-shrink: 0;">
+          <div style="flex: 1;"><label style="font-weight: bold; font-size: 11px; color: #5a4f40;">NÍVEL DO ELEMENTO</label><input type="text" name="system.nivel" value="{{system.nivel}}" style="width: 100%; border: 1px solid #b8b0a1; background: rgba(255,255,255,0.5); padding: 6px; border-radius: 3px;"/></div>
+          <div style="flex: 1;"><label style="font-weight: bold; font-size: 11px; color: darkred;">CUSTO DE PODER</label><input type="text" name="system.custo" value="{{system.custo}}" style="width: 100%; border: 1px solid #c78b8b; background: rgba(250, 230, 230, 0.5); padding: 6px; border-radius: 3px; font-weight: bold; color: darkred;"/></div>
+        </div>
+        {{/if}}
+
+        {{#if isEquipamento}}
+        <div style="display: flex; gap: 15px; flex-shrink: 0;">
+          <div style="flex: 1;"><label style="font-weight: bold; font-size: 11px; color: #5a4f40;">QUANTIDADE</label><input type="number" name="system.quantidade" value="{{system.quantidade}}" style="width: 100%; border: 1px solid #b8b0a1; background: rgba(255,255,255,0.5); padding: 6px; border-radius: 3px; text-align: center; font-size: 16px; font-weight: bold;"/></div>
+          <div style="flex: 1;"><label style="font-weight: bold; font-size: 11px; color: #5a4f40;">CUSTO COMPARTIMENTOS</label><input type="number" name="system.peso" value="{{system.peso}}" style="width: 100%; border: 1px solid #b8b0a1; background: rgba(255,255,255,0.5); padding: 6px; border-radius: 3px; text-align: center; font-size: 16px; font-weight: bold;"/></div>
+        </div>
+        <div style="flex-shrink: 0;">
+          <label style="font-weight: bold; font-size: 11px; color: darkblue;">MODIFICADOR (+ ou - Espaços Totais)</label>
+          <input type="number" name="system.modificadorCompartimento" value="{{system.modificadorCompartimento}}" style="width: 100%; border: 1px solid #8baac7; background: rgba(230, 240, 250, 0.8); padding: 6px; border-radius: 3px; text-align: center; font-weight: bold;"/>
+        </div>
+        {{/if}}
+
+        <!-- A CAIXA DE TEXTO DAS CARACTERÍSTICAS -->
+        <div style="flex: 1; display: flex; flex-direction: column; min-height: 0;">
+          <label style="font-weight: bold; font-size: 11px; color: #5a4f40; margin-bottom: 5px;">TEXTO DAS CARACTERÍSTICAS</label>
+          <textarea name="system.caracteristicas" style="flex: 1; border: 1px solid #b8b0a1; background: rgba(255,255,255,0.5); padding: 10px; border-radius: 3px; resize: none; font-family: 'Marcellus', serif; font-size: 14px;" placeholder="Escreva as características adicionais aqui...">{{system.caracteristicas}}</textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA DETALHES -->
+    <div class="tab" data-group="primary" data-tab="detalhes" style="height: 100%;">
+      <!-- Caixa de proteção do Flexbox -->
+      <div style="display: flex; flex-direction: column; gap: 15px; height: 100%;">
+        {{#if isAptidao}}
+        <div style="display: flex; gap: 15px; flex-shrink: 0;">
+          <div style="flex: 1;"><label style="font-weight: bold; font-size: 11px; color: #5a4f40;">TIPO DA APTIDÃO</label><input type="text" name="system.tipo" value="{{system.tipo}}" style="width: 100%; border: 1px solid #b8b0a1; background: rgba(255,255,255,0.5); padding: 6px; border-radius: 3px;"/></div>
+          <div style="flex: 1;"><label style="font-weight: bold; font-size: 11px; color: #5a4f40;">NÍVEL DA APTIDÃO</label><input type="text" name="system.nivel" value="{{system.nivel}}" style="width: 100%; border: 1px solid #b8b0a1; background: rgba(255,255,255,0.5); padding: 6px; border-radius: 3px;"/></div>
+        </div>
+        <div style="flex-shrink: 0;"><label style="font-weight: bold; font-size: 11px; color: #5a4f40;">PRÉ-REQUISITO</label><input type="text" name="system.preRequisito" value="{{system.preRequisito}}" style="width: 100%; border: 1px solid #b8b0a1; background: rgba(255,255,255,0.5); padding: 6px; border-radius: 3px;"/></div>
+        {{/if}}
+
+        {{#if isElemento}}
+        <div style="flex: 1; display: flex; flex-direction: column; min-height: 0;">
+          <label style="font-weight: bold; font-size: 11px; color: #5a4f40; margin-bottom: 5px;">EFEITOS COMPRADOS</label>
+          <textarea name="system.efeitos" style="flex: 1; border: 1px solid #b8b0a1; background: rgba(255,255,255,0.5); padding: 10px; border-radius: 3px; resize: none; font-family: 'Marcellus', serif; font-size: 14px;">{{system.efeitos}}</textarea>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+
+    <!-- ABA DESCRIÇÃO -->
+    <div class="tab" data-group="primary" data-tab="descricao" style="height: 100%;">
+      <!-- Caixa de proteção do Flexbox -->
+      <div style="display: flex; flex-direction: column; height: 100%;">
+        <textarea name="system.descricao" style="flex: 1; min-height: 0; border: 1px solid #b8b0a1; background: rgba(255,255,255,0.5); padding: 10px; border-radius: 3px; resize: none; font-family: 'Marcellus', serif; font-size: 14px;" placeholder="Escreva a descrição do item aqui...">{{system.descricao}}</textarea>
+      </div>
+    </div>
+
+  </section>
+</form>

@@ -1,0 +1,696 @@
+<style>
+  /* FONTES NINJA / ANIME */
+  @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Yusei+Magic&family=Marcellus&display=swap');
+
+  /* ESTILOS GERAIS DA FICHA */
+  .shinobi.sheet.actor {
+    min-width: 950px;
+    min-height: 750px;
+  }
+  
+  .shinobi-wrapper {
+    background: #e6dfcf;
+    background-image: 
+      radial-gradient(circle at 100% 50%, rgba(0,0,0,0.05) 0%, transparent 50%),
+      radial-gradient(circle at 0% 0%, rgba(200, 180, 150, 0.4) 0%, transparent 40%);
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: multiply;
+    padding: 20px;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Marcellus', serif;
+    color: #332b22;
+  }
+
+  .jp-text { font-family: 'Yusei Magic', sans-serif; }
+  .title-font { font-family: 'Kaushan Script', cursive; }
+
+  /* CABEÇALHO SUPERIOR (TÍTULO) */
+  .top-title-area {
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 10px;
+  }
+  .top-title-area .logo-placeholder {
+    width: 60px; height: 60px;
+    background: url('icons/svg/combat.svg') no-repeat center center;
+    background-size: contain;
+    opacity: 0.7;
+    margin-right: 15px;
+  }
+  .top-title-area h1 {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 42px;
+    margin: 0; border: none;
+    line-height: 1;
+    color: #1a1510;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+  }
+  .top-title-area .jp-sub {
+    font-size: 16px;
+    color: #665c4d;
+    margin-left: 10px;
+    letter-spacing: 2px;
+  }
+
+  /* ÁREA DE DADOS DO PERSONAGEM (CABEÇALHO) */
+  .header-grid-area {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+  }
+  .profile-section {
+    position: relative;
+    width: 160px; height: 160px;
+    border: 3px solid #4a3e30;
+    box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
+    background: #000;
+  }
+  .profile-section img {
+    width: 100%; height: 100%; object-fit: cover; border: none;
+  }
+  .profile-section .vertical-tag {
+    position: absolute;
+    left: -25px; top: 10px;
+    background: #e6dfcf;
+    border: 1px solid #4a3e30;
+    padding: 10px 5px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-family: 'Yusei Magic', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
+  }
+
+  .dados-box {
+    flex: 1;
+    background: rgba(245, 240, 230, 0.6);
+    border: 1px solid #a89f91;
+    border-radius: 2px;
+    padding: 10px 15px;
+    position: relative;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+  }
+  .dados-box::after {
+    content: "🍥";
+    position: absolute; right: 10px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 120px; color: rgba(0,0,0,0.03);
+    pointer-events: none;
+  }
+
+  .dados-box .dados-title {
+    font-size: 12px; font-weight: bold; color: #5a4f40;
+    border-bottom: 1px solid #a89f91; padding-bottom: 2px; margin-bottom: 8px;
+    display: flex; justify-content: space-between;
+  }
+  
+  .dados-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px 15px;
+  }
+  .dados-grid .campo { display: flex; flex-direction: column; }
+  .dados-grid .campo.span-3 { grid-column: span 3; }
+  .dados-grid label { font-size: 10px; color: #665c4d; font-weight: bold; letter-spacing: 0.5px; }
+  .dados-grid input {
+    background: transparent; border: none; border-bottom: 1px solid #b8b0a1;
+    font-family: 'Marcellus', serif; font-size: 14px; color: #1a1510;
+    padding: 2px 0; border-radius: 0;
+  }
+  .dados-grid input:focus { outline: none; border-bottom: 2px solid #5a4f40; }
+  
+  .nc-box {
+    text-align: center;
+  }
+  .nc-box input {
+    width: 60px; height: 40px; font-size: 24px; font-weight: bold;
+    text-align: center; background: #dcd3c1; border: 1px solid #a89f91;
+    border-radius: 5px; color: #4a3e30; margin-top: 5px;
+  }
+
+  /* MENU DE NAVEGAÇÃO */
+  .sns-nav {
+    display: flex; gap: 5px; margin-bottom: 15px;
+    border-bottom: 2px solid #5a4f40; padding-bottom: 2px;
+  }
+  .sns-nav .item {
+    background: rgba(230, 223, 207, 0.8);
+    border: 1px solid #a89f91; border-bottom: none;
+    border-radius: 5px 5px 0 0; padding: 6px 15px;
+    font-weight: bold; font-size: 12px; color: #4a3e30;
+    cursor: pointer; display: flex; align-items: center; gap: 5px;
+    transition: 0.2s;
+  }
+  .sns-nav .item:hover { background: #f0eadd; }
+  .sns-nav .item.active { background: #5a4f40; color: #fff; }
+  .sns-nav .item .jp { font-family: 'Yusei Magic'; font-size: 16px; font-weight: normal; }
+
+  /* CORPO PRINCIPAL E CAIXAS */
+  .sheet-body { flex: 1; overflow-y: auto; overflow-x: hidden; padding-right: 5px; }
+  .sns-box {
+    background: rgba(245, 240, 230, 0.7);
+    border: 1px solid #a89f91;
+    border-radius: 3px; padding: 12px; margin-bottom: 12px;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    position: relative; overflow: hidden;
+  }
+  .sns-box h3 {
+    margin: 0 0 10px 0; padding-bottom: 5px;
+    border-bottom: 1px solid #a89f91;
+    font-size: 15px; font-weight: bold; color: #332b22;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .sns-box h3 i { margin-right: 5px; opacity: 0.7; }
+
+  /* CAIXAS ESPECÍFICAS DE ENERGIA */
+  .energia-box { display: flex; flex-direction: column; align-items: center; padding: 10px; border-radius: 5px; position: relative; }
+  .energia-box.vit { background: rgba(250, 230, 230, 0.8); border: 1px solid #c78b8b; }
+  .energia-box.vit h3 { border: none; color: #a13d3d; font-size: 16px; margin-bottom: 5px; }
+  .energia-box.chk { background: rgba(230, 240, 250, 0.8); border: 1px solid #8baac7; }
+  .energia-box.chk h3 { border: none; color: #3d6ba1; font-size: 16px; margin-bottom: 5px; }
+  .energia-box.jashin { background: rgba(240, 230, 250, 0.8); border: 1px solid #a98bc7; }
+  .energia-box.jashin h3 { border: none; font-family: 'Kaushan Script'; font-size: 20px; margin-bottom: 5px; }
+  
+  .energia-inputs { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: bold; }
+  .energia-inputs label { font-size: 10px; color: #665c4d; }
+  .energia-inputs input { width: 50px; height: 35px; text-align: center; font-size: 18px; font-weight: bold; background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1); border-radius: 3px; }
+
+  /* TABELAS */
+  table.sns-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.sns-table th { text-align: left; padding: 5px; color: #665c4d; font-size: 10px; border-bottom: 1px solid #c0b7a6; }
+  table.sns-table td { padding: 4px 5px; border-bottom: 1px dashed #dcd3c1; }
+  table.sns-table tr:last-child td { border-bottom: none; }
+  
+  .attr-input { width: 35px; text-align: center; font-size: 14px; font-weight: bold; background: transparent; border: 1px solid #b8b0a1; border-radius: 3px; }
+  .attr-input.error { border: 2px solid red; background: #ffe6e6; }
+  .attr-readonly { width: 35px; text-align: center; font-size: 14px; background: transparent; border: none; color: #5a4f40; }
+  
+  .icon-cell { width: 20px; text-align: center; font-size: 14px; opacity: 0.7; }
+  .quote-box { margin-top: auto; padding: 15px; font-family: 'Kaushan Script'; font-size: 18px; text-align: center; color: #5a4f40; line-height: 1.3; }
+
+  /* ESTATISTICAS DE COMBATE */
+  .estatisticas-table input, .estatisticas-table select {
+    background: rgba(0,0,0,0.03); border: 1px solid #b8b0a1; border-radius: 3px; padding: 3px; font-family: 'Marcellus';
+  }
+  .estatisticas-table .total-box {
+    background: #dcd3c1; font-weight: bold; font-size: 16px; border: none; width: 40px; text-align: center;
+  }
+</style>
+
+<form class="{{cssClass}} shinobi-wrapper" autocomplete="off">
+  
+  <!-- === TOPO: NOME E SUBTÍTULO === -->
+  <div class="top-title-area">
+    <div class="logo-placeholder"></div>
+    <div>
+      <h1>{{actor.name}}</h1>
+      <div class="jp-sub">千手 ネトラマ <span style="font-family: 'Marcellus'; font-size: 12px; margin-left: 10px; opacity: 0.7;">(Pressione 'Sheet' para editar o nome)</span></div>
+    </div>
+  </div>
+
+  <!-- === CABEÇALHO: IMAGEM E DADOS === -->
+  <header class="header-grid-area">
+    <div class="profile-section">
+      <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+      <div class="vertical-tag">忍者</div>
+    </div>
+    
+    <div class="dados-box">
+      <div class="dados-title">
+        <span>DADOS DO PERSONAGEM</span>
+        <span style="font-weight: normal; margin-right: 70px;">NC</span>
+      </div>
+      <div style="display: flex; gap: 15px;">
+        <div class="dados-grid" style="flex: 1;">
+          <div class="campo span-3"><label>NOME</label><input name="name" type="text" value="{{actor.name}}"/></div>
+          <div class="campo"><label>GÊNERO</label><input name="system.cabecalho.genero" type="text" value="{{system.cabecalho.genero}}"/></div>
+          
+          <div class="campo"><label>CLÃ | HIJUTSU</label><input name="system.cabecalho.cla" type="text" value="{{system.cabecalho.cla}}"/></div>
+          <div class="campo"><label>PATENTE</label><input name="system.cabecalho.patente" type="text" value="{{system.cabecalho.patente}}"/></div>
+          <div class="campo"><label>FILIAÇÃO ATUAL</label><input name="system.cabecalho.filiacao" type="text" value="{{system.cabecalho.filiacao}}"/></div>
+          
+          <div class="campo"><label>TENDÊNCIA</label><input name="system.cabecalho.tendencia" type="text" value="{{system.cabecalho.tendencia}}"/></div>
+          <div class="campo"><label>IDADE</label><input name="system.cabecalho.idade" type="text" value="{{system.cabecalho.idade}}"/></div>
+          <div class="campo"><label>LOCAL NASC.</label><input name="system.cabecalho.localNascimento" type="text" value="{{system.cabecalho.localNascimento}}"/></div>
+          <div class="campo"><label>SEXUALIDADE</label><input name="system.cabecalho.sexualidade" type="text" value="{{system.cabecalho.sexualidade}}"/></div>
+        </div>
+        <div class="nc-box">
+          <input name="system.cabecalho.nc" type="number" value="{{system.cabecalho.nc}}" data-dtype="Number"/>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- === NAVEGAÇÃO === -->
+  <nav class="sns-nav sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="principal"><span class="jp">基本</span> PRINCIPAL</a>
+    <a class="item" data-tab="inventario"><span class="jp">道具</span> INVENTÁRIO</a>
+    <a class="item" data-tab="poderes"><span class="jp">術</span> PODERES & APTIDÕES</a>
+    <a class="item" data-tab="databook"><span class="jp">書物</span> DATABOOK</a>
+    <a class="item" data-tab="configuracoes"><span class="jp">設定</span> CONFIGS</a>
+  </nav>
+
+  <!-- === CORPO DA FICHA === -->
+  <section class="sheet-body">
+    
+    <!-- ================= ABA PRINCIPAL ================= -->
+    <div class="tab principal" data-group="primary" data-tab="principal">
+      <div style="display: flex; flex-direction: column; height: 100%;">
+        
+        <nav class="sheet-tabs tabs" data-group="secundario" style="flex: 0 0 auto; display: flex; gap: 5px; margin-bottom: 10px; border-bottom: 2px solid #5a4f40; padding-bottom: 5px;">
+          <a class="item" data-tab="status" style="font-weight: bold; cursor: pointer; padding: 5px 15px; background: rgba(245,240,230,0.7); border: 1px solid #a89f91; border-radius: 5px 5px 0 0; color: #4a3e30;">STATUS & COMBATE</a>
+          <a class="item" data-tab="pericias" style="font-weight: bold; cursor: pointer; padding: 5px 15px; background: rgba(245,240,230,0.7); border: 1px solid #a89f91; border-radius: 5px 5px 0 0; color: #4a3e30;">PERÍCIAS & HABILIDADES</a>
+        </nav>
+
+        <section class="principal-body" style="flex: 1;">
+          
+          <!-- SUB-ABA: STATUS -->
+          <div class="tab status" data-group="secundario" data-tab="status">
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+              
+              <!-- COLUNA ESQUERDA -->
+              <div style="flex: 0 0 320px; display: flex; flex-direction: column;">
+                
+                <div class="sns-box">
+                  <h3>ATRIBUTOS <span style="font-size: 11px; color: {{#if evolucao.atributosNegativo}}red{{else}}#777{{/if}}; font-weight: normal;">(Restam: {{evolucao.atributos}})</span></h3>
+                  <table class="sns-table">
+                    <thead><tr><th colspan="2">STATUS</th><th style="text-align: center;">VALOR</th><th style="text-align: center;">PRECISÃO</th><th style="text-align: center;">R.M.</th></tr></thead>
+                    <tbody>
+                      <tr><td class="icon-cell">✊</td><td><a class="rollable" data-nome="Força" data-precisao="{{system.atributos.for.precisao}}" style="cursor:pointer; font-weight:bold;">FORÇA</a></td><td align="center"><input type="number" name="system.atributos.for.valor" value="{{system.atributos.for.valor}}" class="attr-input {{#if erros.atributos.for}}error{{/if}}"/></td><td align="center"><input type="number" value="{{system.atributos.for.precisao}}" class="attr-readonly" readonly/></td><td align="center"><input type="checkbox" name="system.atributos.for.resMaior" {{checked system.atributos.for.resMaior}}/></td></tr>
+                      <tr><td class="icon-cell">🗡️</td><td><a class="rollable" data-nome="Destreza" data-precisao="{{system.atributos.des.precisao}}" style="cursor:pointer; font-weight:bold;">DESTREZA</a></td><td align="center"><input type="number" name="system.atributos.des.valor" value="{{system.atributos.des.valor}}" class="attr-input {{#if erros.atributos.des}}error{{/if}}"/></td><td align="center"><input type="number" value="{{system.atributos.des.precisao}}" class="attr-readonly" readonly/></td><td align="center"><input type="checkbox" name="system.atributos.des.resMaior" {{checked system.atributos.des.resMaior}}/></td></tr>
+                      <tr><td class="icon-cell">💨</td><td><a class="rollable" data-nome="Agilidade" data-precisao="{{system.atributos.agi.precisao}}" style="cursor:pointer; font-weight:bold;">AGILIDADE</a></td><td align="center"><input type="number" name="system.atributos.agi.valor" value="{{system.atributos.agi.valor}}" class="attr-input {{#if erros.atributos.agi}}error{{/if}}"/></td><td align="center"><input type="number" value="{{system.atributos.agi.precisao}}" class="attr-readonly" readonly/></td><td align="center"><input type="checkbox" name="system.atributos.agi.resMaior" {{checked system.atributos.agi.resMaior}}/></td></tr>
+                      <tr><td class="icon-cell">👁️</td><td><a class="rollable" data-nome="Percepção" data-precisao="{{system.atributos.per.precisao}}" style="cursor:pointer; font-weight:bold;">PERCEPÇÃO</a></td><td align="center"><input type="number" name="system.atributos.per.valor" value="{{system.atributos.per.valor}}" class="attr-input {{#if erros.atributos.per}}error{{/if}}"/></td><td align="center"><input type="number" value="{{system.atributos.per.precisao}}" class="attr-readonly" readonly/></td><td align="center"><input type="checkbox" name="system.atributos.per.resMaior" {{checked system.atributos.per.resMaior}}/></td></tr>
+                      <tr><td class="icon-cell">🛡️</td><td><a class="rollable" data-nome="Vigor" data-precisao="{{system.atributos.vig.precisao}}" style="cursor:pointer; font-weight:bold;">VIGOR</a></td><td align="center"><input type="number" name="system.atributos.vig.valor" value="{{system.atributos.vig.valor}}" class="attr-input {{#if erros.atributos.vig}}error{{/if}}"/></td><td align="center"><input type="number" value="{{system.atributos.vig.precisao}}" class="attr-readonly" readonly/></td><td align="center"><input type="checkbox" name="system.atributos.vig.resMaior" {{checked system.atributos.vig.resMaior}}/></td></tr>
+                      <tr><td class="icon-cell">🧠</td><td><a class="rollable" data-nome="Inteligência" data-precisao="{{system.atributos.int.precisao}}" style="cursor:pointer; font-weight:bold;">INTELIGÊNCIA</a></td><td align="center"><input type="number" name="system.atributos.int.valor" value="{{system.atributos.int.valor}}" class="attr-input {{#if erros.atributos.int}}error{{/if}}"/></td><td align="center"><input type="number" value="{{system.atributos.int.precisao}}" class="attr-readonly" readonly/></td><td align="center"><input type="checkbox" name="system.atributos.int.resMaior" {{checked system.atributos.int.resMaior}}/></td></tr>
+                      <tr><td class="icon-cell">👻</td><td><a class="rollable" data-nome="Espírito" data-precisao="{{system.atributos.esp.precisao}}" style="cursor:pointer; font-weight:bold;">ESPÍRITO</a></td><td align="center"><input type="number" name="system.atributos.esp.valor" value="{{system.atributos.esp.valor}}" class="attr-input {{#if erros.atributos.esp}}error{{/if}}"/></td><td align="center"><input type="number" value="{{system.atributos.esp.precisao}}" class="attr-readonly" readonly/></td><td align="center"><input type="checkbox" name="system.atributos.esp.resMaior" {{checked system.atributos.esp.resMaior}}/></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="sns-box">
+                  <h3>ATRIBUTOS SOCIAIS <span style="font-size: 11px; color: {{#if evolucao.sociaisNegativo}}red{{else}}#777{{/if}}; font-weight: normal;">(Restam: {{evolucao.sociais}})</span></h3>
+                  <table class="sns-table">
+                    <tbody>
+                      <tr><td class="icon-cell">🌸</td><td><a class="rollable" data-nome="Carisma (Yang)" data-precisao="{{system.sociais.carisma.precisao}}" style="cursor:pointer; font-weight:bold;">CARISMA (Yang)</a></td><td align="right"><input type="number" name="system.sociais.carisma.valor" value="{{system.sociais.carisma.valor}}" class="attr-input {{#if erros.sociais.carisma}}error{{/if}}"/></td></tr>
+                      <tr><td class="icon-cell">🕸️</td><td><a class="rollable" data-nome="Manipulação (Yin)" data-precisao="{{system.sociais.manipulacao.precisao}}" style="cursor:pointer; font-weight:bold;">MANIPULAÇÃO (Yin)</a></td><td align="right"><input type="number" name="system.sociais.manipulacao.valor" value="{{system.sociais.manipulacao.valor}}" class="attr-input {{#if erros.sociais.manipulacao}}error{{/if}}"/></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                
+                <div class="sns-box" style="text-align: center; background: rgba(230, 240, 230, 0.6); border-color: #7b9c7b;">
+                  <h3 style="justify-content: center; color: #4a6b4a; border-bottom: 1px solid #7b9c7b; margin-bottom: 10px;">📈 PONTOS GERAIS (NC {{evolucao.ncAtual}})</h3>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 5px;">
+                    <div style="background: rgba(255,255,255,0.5); padding: 5px; border-radius: 3px; border: 1px solid #b8b0a1;"><strong>Atributos:</strong> <span style="font-size: 14px; font-weight:bold; color: {{#if evolucao.atributosNegativo}}#a13d3d{{else}}#332b22{{/if}};">{{evolucao.atributos}}</span></div>
+                    <div style="background: rgba(255,255,255,0.5); padding: 5px; border-radius: 3px; border: 1px solid #b8b0a1;"><strong>Perícias:</strong> <span style="font-size: 14px; font-weight:bold; color: {{#if evolucao.periciasNegativo}}#a13d3d{{else}}#332b22{{/if}};">{{evolucao.pericias}}</span></div>
+                    <div style="background: rgba(255,255,255,0.5); padding: 5px; border-radius: 3px; border: 1px solid #b8b0a1;"><strong>Poderes:</strong> <span style="font-size: 14px; font-weight:bold; color: {{#if evolucao.poderesNegativo}}#a13d3d{{else}}#332b22{{/if}};">{{evolucao.poderes}}</span></div>
+                    <div style="background: rgba(255,255,255,0.5); padding: 5px; border-radius: 3px; border: 1px solid #b8b0a1;"><strong>Sociais:</strong> <span style="font-size: 14px; font-weight:bold; color: {{#if evolucao.sociaisNegativo}}#a13d3d{{else}}#332b22{{/if}};">{{evolucao.sociais}}</span></div>
+                  </div>
+                  <div style="font-size: 10px; color: #665c4d; border-top: 1px dashed #b8b0a1; padding-top: 5px; margin-top: 5px;">
+                    <strong>Limites:</strong> Atributo [{{evolucao.limiteAtributo}}] | Perícia/Poder [{{evolucao.limitePericiaPoder}}]
+                  </div>
+                </div>
+
+                <div class="quote-box">
+                  "A paz não é algo que se deseja; é algo que se constrói."
+                </div>
+
+              </div>
+
+              <!-- COLUNA DIREITA -->
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 15px;">
+                
+                <!-- VITALIDADE E CHAKRA -->
+                <div style="display: flex; gap: 15px;">
+                  <div class="energia-box vit" style="flex: 1;">
+                    <h3>🔥 VITALIDADE</h3>
+                    <div class="energia-inputs">
+                      <label>ATUAL</label><input type="number" name="system.energias.vitalidade.value" value="{{system.energias.vitalidade.value}}"/>
+                      <span>/</span>
+                      <label>MÁX</label><input type="number" value="{{system.energias.vitalidade.max}}" readonly style="background:transparent; border:none;"/>
+                    </div>
+                  </div>
+                  <div class="energia-box chk" style="flex: 1;">
+                    <h3>🌀 CHAKRA</h3>
+                    <div class="energia-inputs">
+                      <label>ATUAL</label><input type="number" name="system.energias.chakra.value" value="{{system.energias.chakra.value}}"/>
+                      <span>/</span>
+                      <label>MÁX</label><input type="number" value="{{system.energias.chakra.max}}" readonly style="background:transparent; border:none;"/>
+                    </div>
+                    <div style="position: absolute; right: 10px; top: 10px; font-size: 40px; opacity: 0.2; font-family: 'Yusei Magic';">氣</div>
+                  </div>
+                </div>
+
+                <!-- RECURSO EXTRA -->
+                {{#if mostrarRecursoExtra}}
+                <div class="energia-box jashin" style="width: 100%; border-color: {{system.recursoExtra.cor}}; background: {{system.recursoExtra.cor}}11;">
+                  <h3 style="color: {{system.recursoExtra.cor}};">{{nomeRecursoExtra}}</h3>
+                  <div class="energia-inputs">
+                    <label>ATUAL</label><input type="number" name="system.recursoExtra.atual" value="{{system.recursoExtra.atual}}"/>
+                    <span>/</span>
+                    <label>MÁX</label><input type="number" value="{{system.recursoExtra.max}}" readonly style="background:transparent; border:none;"/>
+                  </div>
+                </div>
+                {{/if}}
+
+                <!-- DEFESAS -->
+                <div class="sns-box" style="text-align: center;">
+                  <h3 style="justify-content: center;">🛡️ DEFESAS & CONDIÇÕES</h3>
+                  <div style="display: flex; justify-content: space-around; margin-top: 10px;">
+                    <div>
+                      <label style="font-size: 10px; font-weight: bold; color: #665c4d;">DUREZA</label>
+                      <div style="display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 5px;">
+                        <input type="number" name="system.defesas.dureza" value="{{system.defesas.dureza}}" style="width: 40px; text-align: center; border: 1px solid #b8b0a1; background: rgba(0,0,0,0.05); font-size: 16px; border-radius: 3px;" title="Base"/>
+                        <span style="font-weight: bold;">=</span>
+                        <input type="number" value="{{system.defesas.durezaTotal}}" readonly style="width: 40px; text-align: center; background: transparent; border: none; font-size: 18px; font-weight: bold; color: #332b22;" title="Total (Com Buffs)"/>
+                      </div>
+                    </div>
+                    <div>
+                      <label style="font-size: 10px; font-weight: bold; color: #665c4d;">ABSORÇÃO</label><br>
+                      <input type="number" name="system.defesas.absorcao" value="{{system.defesas.absorcao}}" style="width: 80px; text-align: center; border: 1px solid #b8b0a1; background: rgba(0,0,0,0.05); font-size: 18px; font-weight: bold; margin-top: 5px; border-radius: 3px;"/>
+                    </div>
+                    <div>
+                      <label style="font-size: 10px; font-weight: bold; color: #a13d3d;">SANGRAMENTO</label><br>
+                      <input type="number" name="system.defesas.sangramento" value="{{system.defesas.sangramento}}" style="width: 80px; text-align: center; border: 1px solid #c78b8b; background: rgba(250,230,230,0.5); font-size: 18px; font-weight: bold; color: #a13d3d; margin-top: 5px; border-radius: 3px;"/>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ESTATÍSTICAS DE COMBATE -->
+                <div class="sns-box">
+                  <h3>⚔️ ESTATÍSTICAS DE COMBATE</h3>
+                  <table class="sns-table estatisticas-table">
+                    <thead><tr><th>NOME</th><th style="text-align: center;">TOTAL</th><th>PERÍCIA</th><th>VARIÁVEL</th><th style="text-align: center;">BÔNUS</th></tr></thead>
+                    <tbody>
+                      <tr>
+                        <td style="font-weight: bold;"><a class="roll-iniciativa" style="cursor: pointer; color: #a13d3d; text-decoration: underline;" title="Adicionar ao Rastreador de Combate">Iniciativa</a></td>
+                        <td align="center"><input type="number" class="total-box" value="{{system.energias.iniciativa.total}}" readonly /></td>
+                        <td>= <select name="system.energias.iniciativa.pericia" style="width: 110px;">{{selectOptions opcoesPericias selected=system.energias.iniciativa.pericia}}</select></td>
+                        <td>+ <select name="system.energias.iniciativa.atributo" style="width: 110px;">{{selectOptions opcoesAtributos selected=system.energias.iniciativa.atributo}}</select></td>
+                        <td align="center">+ <input type="number" name="system.energias.iniciativa.bonus" value="{{system.energias.iniciativa.bonus}}" style="width: 40px; text-align: center;"/></td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold;">Esquiva</td>
+                        <td align="center"><input type="number" class="total-box" value="{{system.energias.reacaoEsquiva.total}}" readonly /></td>
+                        <td>= <select name="system.energias.reacaoEsquiva.pericia" style="width: 110px;">{{selectOptions opcoesCombate selected=system.energias.reacaoEsquiva.pericia}}</select></td>
+                        <td>+ <input type="number" value="{{system.energias.reacaoEsquiva.fixo}}" readonly style="width: 40px; text-align: center; background: transparent; border: none; font-weight: bold;"/></td>
+                        <td align="center">+ <input type="number" name="system.energias.reacaoEsquiva.bonus" value="{{system.energias.reacaoEsquiva.bonus}}" style="width: 40px; text-align: center;"/></td>
+                      </tr>
+                      <tr>
+                        <td style="font-weight: bold;">Deslocamento</td>
+                        <td align="center"><input type="number" class="total-box" value="{{system.energias.deslocamento.total}}" readonly /></td>
+                        <td style="white-space: nowrap;">= <input type="number" name="system.energias.deslocamento.base" value="{{system.energias.deslocamento.base}}" style="width: 40px; text-align: center;"/> +</td>
+                        <td style="white-space: nowrap;"><select name="system.energias.deslocamento.atributo" style="width: 110px;">{{selectOptions opcoesAtributos selected=system.energias.deslocamento.atributo}}</select> ÷ <input type="number" name="system.energias.deslocamento.divisor" value="{{system.energias.deslocamento.divisor}}" style="width: 35px; text-align: center;"/></td>
+                        <td align="center">+ <input type="number" name="system.energias.deslocamento.bonus" value="{{system.energias.deslocamento.bonus}}" style="width: 40px; text-align: center;"/></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- CALCULADORA DE DANO -->
+                <div class="sns-box">
+                  <h3 style="color: #a13d3d;">💥 CALCULADORA DE DANOS</h3>
+                  <table class="sns-table" style="text-align: center;">
+                    <thead>
+                      <tr><th style="text-align: left;">TIPO</th><th title="Metade do Atributo">ATR ½</th><th title="Dano da Arma">DDA</th><th>OUT.</th><th>+0,5</th><th style="font-weight: bold;">TOTAL</th><th>GR 1</th><th>GR 2</th><th>GR 3</th><th style="color: green;">GR 4</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr><td style="font-weight: bold; text-align: left;">ARMA (FOR)</td><td><input type="number" value="{{system.calculadora.danoForca.baseAtributo}}" class="attr-readonly" readonly /></td><td><input type="number" name="system.calculadora.danoForca.dda" value="{{system.calculadora.danoForca.dda}}" class="attr-input"/></td><td><input type="number" name="system.calculadora.danoForca.outro" value="{{system.calculadora.danoForca.outro}}" class="attr-input"/></td><td><input type="checkbox" name="system.calculadora.danoForca.meioGrau" {{checked system.calculadora.danoForca.meioGrau}}/></td><td><input type="number" value="{{system.calculadora.danoForca.totalBase}}" style="width: 35px; text-align: center; font-weight: bold; background: rgba(0,0,0,0.05); border: none; border-radius: 3px;" readonly /></td><td>{{system.calculadora.danoForca.grau1}}</td><td>{{system.calculadora.danoForca.grau2}}</td><td>{{system.calculadora.danoForca.grau3}}</td><td style="color: green; font-weight: bold;">{{system.calculadora.danoForca.grau4}}</td></tr>
+                      <tr><td style="font-weight: bold; text-align: left;">ARMA (DES)</td><td><input type="number" value="{{system.calculadora.danoDestreza.baseAtributo}}" class="attr-readonly" readonly /></td><td><input type="number" name="system.calculadora.danoDestreza.dda" value="{{system.calculadora.danoDestreza.dda}}" class="attr-input"/></td><td><input type="number" name="system.calculadora.danoDestreza.outro" value="{{system.calculadora.danoDestreza.outro}}" class="attr-input"/></td><td><input type="checkbox" name="system.calculadora.danoDestreza.meioGrau" {{checked system.calculadora.danoDestreza.meioGrau}}/></td><td><input type="number" value="{{system.calculadora.danoDestreza.totalBase}}" style="width: 35px; text-align: center; font-weight: bold; background: rgba(0,0,0,0.05); border: none; border-radius: 3px;" readonly /></td><td>{{system.calculadora.danoDestreza.grau1}}</td><td>{{system.calculadora.danoDestreza.grau2}}</td><td>{{system.calculadora.danoDestreza.grau3}}</td><td style="color: green; font-weight: bold;">{{system.calculadora.danoDestreza.grau4}}</td></tr>
+                      <tr><td style="font-weight: bold; text-align: left;">PODER (ESP)</td><td><input type="number" value="{{system.calculadora.danoEspirito.baseAtributo}}" class="attr-readonly" readonly /></td><td><input type="number" name="system.calculadora.danoEspirito.dda" value="{{system.calculadora.danoEspirito.dda}}" class="attr-input"/></td><td><input type="number" name="system.calculadora.danoEspirito.outro" value="{{system.calculadora.danoEspirito.outro}}" class="attr-input"/></td><td><input type="checkbox" name="system.calculadora.danoEspirito.meioGrau" {{checked system.calculadora.danoEspirito.meioGrau}}/></td><td><input type="number" value="{{system.calculadora.danoEspirito.totalBase}}" style="width: 35px; text-align: center; font-weight: bold; background: rgba(0,0,0,0.05); border: none; border-radius: 3px;" readonly /></td><td>{{system.calculadora.danoEspirito.grau1}}</td><td>{{system.calculadora.danoEspirito.grau2}}</td><td>{{system.calculadora.danoEspirito.grau3}}</td><td style="color: green; font-weight: bold;">{{system.calculadora.danoEspirito.grau4}}</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div>
+            </div>
+          </div> <!-- FIM SUB-ABA STATUS -->
+
+          <!-- SUB-ABA PERICIAS -->
+          <div class="tab pericias" data-group="secundario" data-tab="pericias">
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+              
+              <!-- COMBATE -->
+              <div class="sns-box" style="flex: 1; min-width: 280px;">
+                <h3>HABILIDADES DE COMBATE <span style="font-size: 11px; font-weight: normal; color: {{#if evolucao.periciasNegativo}}red{{else}}#777{{/if}};">(Restam: {{evolucao.pericias}})</span></h3>
+                <table class="sns-table" style="text-align: center;">
+                  <thead><tr><th style="text-align: left;">NOME</th><th>TOTAL</th><th>BASE</th><th>ATRIBUTO</th><th>BÔNUS</th></tr></thead>
+                  <tbody>
+                    {{#each listaCombate as |combate|}}
+                    <tr>
+                      <td style="font-weight: bold; text-align: left;"><a class="rollable" data-nome="{{combate.nomeAmigavel}}" data-precisao="{{combate.dados.total}}" style="cursor: pointer;">{{combate.nomeAmigavel}}</a></td>
+                      <td><input type="number" value="{{combate.dados.total}}" class="attr-readonly" style="font-weight: bold;" readonly /></td>
+                      <td><input type="number" name="system.combate.{{combate.chave}}.base" value="{{combate.dados.base}}" class="attr-input {{#if combate.erroLimite}}error{{/if}}"/></td>
+                      <td><select name="system.combate.{{combate.chave}}.attr" style="width: 90px; padding: 2px; border: 1px solid #b8b0a1; background: transparent;">{{selectOptions ../opcoesAtributos selected=combate.dados.attr}}</select></td>
+                      <td><input type="number" name="system.combate.{{combate.chave}}.outro" value="{{combate.dados.outro}}" class="attr-input"/></td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- SOCIAIS -->
+              <div class="sns-box" style="flex: 1; min-width: 280px;">
+                <h3>PERÍCIAS SOCIAIS <span style="font-size: 11px; font-weight: normal; color: #777;">(Usa Pts. de Perícia)</span></h3>
+                <table class="sns-table" style="text-align: center;">
+                  <thead><tr><th style="text-align: left;">HABILIDADE</th><th>TOTAL</th><th>BASE</th><th>PTS</th><th>OUT</th></tr></thead>
+                  <tbody>
+                    {{#each listaSociais as |social|}}
+                    <tr>
+                      <td style="font-weight: bold; text-align: left;"><a class="rollable" data-nome="{{social.nomeAmigavel}}" data-precisao="{{social.dados.total}}" style="cursor: pointer;">{{social.nomeAmigavel}}</a> <span style="font-size: 9px; opacity: 0.7;">({{social.siglaAttr}})</span></td>
+                      <td><input type="number" value="{{social.dados.total}}" class="attr-readonly" style="font-weight: bold;" readonly /></td>
+                      <td><input type="number" value="{{social.dados.base}}" class="attr-readonly" readonly /></td>
+                      <td><input type="number" name="system.periciasSociais.{{social.chave}}.pontos" value="{{social.dados.pontos}}" class="attr-input {{#if social.erroLimite}}error{{/if}}"/></td>
+                      <td><input type="number" name="system.periciasSociais.{{social.chave}}.outro" value="{{social.dados.outro}}" class="attr-input"/></td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- GERAIS -->
+              <div class="sns-box" style="flex: 1; min-width: 280px;">
+                <h3>PERÍCIAS GERAIS <span style="font-size: 11px; font-weight: normal; color: {{#if evolucao.periciasNegativo}}red{{else}}#777{{/if}};">(Restam: {{evolucao.pericias}})</span></h3>
+                <table class="sns-table" style="text-align: center;">
+                  <thead><tr><th style="text-align: left;">HABILIDADE</th><th>TOTAL</th><th>BASE</th><th>PTS</th><th>OUT</th></tr></thead>
+                  <tbody>
+                    {{#each listaPericias as |pericia|}}
+                    <tr>
+                      <td style="font-weight: bold; text-align: left;"><a class="rollable" data-nome="{{pericia.nomeAmigavel}}" data-precisao="{{pericia.dados.total}}" style="cursor: pointer;">{{pericia.nomeAmigavel}}</a> <span style="font-size: 9px; opacity: 0.7;">({{pericia.siglaAttr}})</span></td>
+                      <td><input type="number" value="{{pericia.dados.total}}" class="attr-readonly" style="font-weight: bold;" readonly /></td>
+                      <td><input type="number" value="{{pericia.dados.base}}" class="attr-readonly" readonly /></td>
+                      <td><input type="number" name="system.pericias.{{pericia.chave}}.pontos" value="{{pericia.dados.pontos}}" class="attr-input {{#if pericia.erroLimite}}error{{/if}}" {{#if pericia.isLocked}}readonly style="background: #e0e0e0;" title="Requer ativar 'Químico'"{{/if}}/></td>
+                      <td><input type="number" name="system.pericias.{{pericia.chave}}.outro" value="{{pericia.dados.outro}}" class="attr-input" {{#if pericia.isLocked}}readonly style="background: #e0e0e0;"{{/if}}/></td>
+                    </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div> <!-- FIM SUB-ABA PERICIAS -->
+
+        </section>
+      </div>
+    </div> <!-- FIM ABA PRINCIPAL -->
+
+    <!-- ABA INVENTÁRIO -->
+    <div class="tab inventario" data-group="primary" data-tab="inventario">
+      <div class="sns-box">
+        <h3>🎒 EQUIPAMENTOS <a class="item-create" data-type="equipamento" style="cursor: pointer; font-size: 12px; background: rgba(0,0,0,0.1); padding: 2px 5px; border-radius: 3px;">+ Adicionar Item</a></h3>
+        <table class="sns-table" style="text-align: center;">
+          <thead><tr><th style="text-align: left;">NOME DO ITEM</th><th style="width: 60px;">QTD</th><th style="width: 60px;">COMP.</th><th style="width: 80px;">AÇÕES</th></tr></thead>
+          <tbody>
+            {{#each equipamentos as |item|}}
+            <tr class="item-row" data-item-id="{{item.id}}">
+              <td style="font-weight: bold; cursor: pointer; text-align: left;" class="item-to-chat" title="Enviar para o Chat"><img src="{{item.img}}" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px; border-radius: 3px;"/>{{item.name}}</td>
+              <td>{{item.system.quantidade}}</td><td>{{item.system.peso}}</td>
+              <td><a class="item-edit" title="Editar" style="cursor: pointer; margin-right: 10px;">✏️</a><a class="item-delete" title="Apagar" style="cursor: pointer;">🗑️</a></td>
+            </tr>
+            {{/each}}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="2" style="font-weight: bold; text-align: right; padding-top: 15px;">COMPARTIMENTOS (USADOS / MÁX):</td>
+              <td colspan="2" style="font-weight: bold; font-size: 18px; padding-top: 15px; color: {{#if compartimentosExcedidos}}#a13d3d{{else}}#3d6ba1{{/if}};">{{compartimentosUsados}} / {{compartimentosMaximos}}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <!-- ABA PODERES -->
+    <div class="tab poderes" data-group="primary" data-tab="poderes">
+      
+      <!-- NOVA SECÇÃO: ELEMENTOS -->
+      <div class="sns-box" style="margin-bottom: 15px; border-color: darkorange; background: rgba(255, 245, 230, 0.8);">
+        <h3 style="color: darkorange;">🔥 ELEMENTOS <span style="font-size: 11px; font-weight: normal; color: #777;">(Afinidades)</span> <a class="item-create" data-type="elemento" style="cursor: pointer; font-size: 12px; background: rgba(0,0,0,0.1); padding: 2px 5px; border-radius: 3px; color: darkorange;">+ Adicionar Elemento</a></h3>
+        <table class="sns-table" style="text-align: center;">
+          <thead><tr><th style="text-align: left;">NOME</th><th>NÍVEL</th><th>EFEITOS</th><th>CUSTO</th><th>AÇÕES</th></tr></thead>
+          <tbody>
+            {{#each elementos as |item|}}
+            <tr class="item-row" data-item-id="{{item.id}}">
+              <td style="font-weight: bold; cursor: pointer; text-align: left; color: darkorange;" class="item-to-chat"><img src="{{item.img}}" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px; border-radius:3px;"/>{{item.name}}</td>
+              <td>{{item.system.nivel}}</td><td>{{item.system.efeitos}}</td><td style="font-weight: bold;">{{item.system.custo}}</td>
+              <td><a class="item-edit" style="cursor: pointer; margin-right: 10px;">✏️</a><a class="item-delete" style="cursor: pointer;">🗑️</a></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="sns-box" style="margin-bottom: 15px;">
+        <h3>🌀 PODERES (Jutsus / Hijutsus) <span style="font-size: 11px; font-weight: normal;">(Restam: {{evolucao.poderes}})</span> <a class="item-create" data-type="poder" style="cursor: pointer; font-size: 12px; background: rgba(0,0,0,0.1); padding: 2px 5px; border-radius: 3px;">+ Adicionar Poder</a></h3>
+        <table class="sns-table" style="text-align: center;">
+          <thead><tr><th style="text-align: left;">NOME</th><th>TIPO</th><th>ELEMENTO</th><th>CUSTO</th><th>AÇÕES</th></tr></thead>
+          <tbody>
+            {{#each poderes as |item|}}
+            <tr class="item-row" data-item-id="{{item.id}}">
+              <td style="font-weight: bold; cursor: pointer; text-align: left;" class="item-to-chat"><img src="{{item.img}}" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;"/>{{item.name}}</td>
+              <td>{{item.system.tipo}}</td><td>{{item.system.elemento}}</td><td style="font-weight: bold;">{{item.system.custo}}</td>
+              <td><a class="item-edit" style="cursor: pointer; margin-right: 10px;">✏️</a><a class="item-delete" style="cursor: pointer;">🗑️</a></td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display: flex; gap: 15px;">
+        <div class="sns-box" style="flex: 1;">
+          <h3>✨ APTIDÕES GRATUITAS <a class="item-create" data-type="aptidao" data-gratuita="true" style="cursor: pointer; font-size: 12px; background: rgba(0,0,0,0.1); padding: 2px 5px; border-radius: 3px;">+ Adicionar</a></h3>
+          <table class="sns-table" style="text-align: center;">
+            <thead><tr><th style="text-align: left;">NOME</th><th>TIPO</th><th>CUSTO</th><th>AÇÕES</th></tr></thead>
+            <tbody>
+              {{#each aptidoesGratuitas as |item|}}
+              <tr class="item-row" data-item-id="{{item.id}}">
+                <td style="font-weight: bold; cursor: pointer; text-align: left;" class="item-to-chat"><img src="{{item.img}}" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;"/>{{item.name}}</td>
+                <td>{{item.system.tipo}}</td><td style="font-weight: bold;">{{item.system.custo}}</td>
+                <td><a class="item-edit" style="cursor: pointer; margin-right: 10px;">✏️</a><a class="item-delete" style="cursor: pointer;">🗑️</a></td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+        <div class="sns-box" style="flex: 1;">
+          <h3>⚔️ APTIDÕES (Compradas) <a class="item-create" data-type="aptidao" data-gratuita="false" style="cursor: pointer; font-size: 12px; background: rgba(0,0,0,0.1); padding: 2px 5px; border-radius: 3px;">+ Adicionar</a></h3>
+          <table class="sns-table" style="text-align: center;">
+            <thead><tr><th style="text-align: left;">NOME</th><th>TIPO</th><th>CUSTO</th><th>AÇÕES</th></tr></thead>
+            <tbody>
+              {{#each aptidoes as |item|}}
+              <tr class="item-row" data-item-id="{{item.id}}">
+                <td style="font-weight: bold; cursor: pointer; text-align: left;" class="item-to-chat"><img src="{{item.img}}" style="width: 24px; height: 24px; vertical-align: middle; margin-right: 8px;"/>{{item.name}}</td>
+                <td>{{item.system.tipo}}</td><td style="font-weight: bold;">{{item.system.custo}}</td>
+                <td><a class="item-edit" style="cursor: pointer; margin-right: 10px;">✏️</a><a class="item-delete" style="cursor: pointer;">🗑️</a></td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div> <!-- FIM DA ABA PODERES -->
+
+    <!-- ABA DATABOOK -->
+    <div class="tab databook" data-group="primary" data-tab="databook">
+      <div style="display: flex; flex-direction: column; gap: 15px; height: 100%;">
+        <div class="sns-box" style="flex: 1; display: flex; flex-direction: column; min-height: 250px;">
+          <h3>📖 BIOGRAFIA & HISTÓRIA</h3>
+          <div style="flex: 1; border: 1px solid #b8b0a1; background: rgba(255,255,255,0.3); padding: 5px; overflow-y: auto;">
+            {{editor biografiaHTML target="system.databook.biografia" button=false editable=editable engine="prosemirror"}}
+          </div>
+        </div>
+        <div style="display: flex; gap: 15px; flex: 1;">
+          <div class="sns-box" style="flex: 1; display: flex; flex-direction: column; min-height: 250px;">
+            <h3>🤝 RELAÇÕES & VÍNCULOS</h3>
+            <div style="flex: 1; border: 1px solid #b8b0a1; background: rgba(255,255,255,0.3); padding: 5px; overflow-y: auto;">
+              {{editor relacoesHTML target="system.databook.relacoesTexto" button=false editable=editable engine="prosemirror"}}
+            </div>
+          </div>
+          <div class="sns-box" style="flex: 1; display: flex; flex-direction: column; min-height: 250px;">
+            <h3>💡 CURIOSIDADES & NOTAS</h3>
+            <div style="flex: 1; border: 1px solid #b8b0a1; background: rgba(255,255,255,0.3); padding: 5px; overflow-y: auto;">
+              {{editor curiosidadesHTML target="system.databook.curiosidades" button=false editable=editable engine="prosemirror"}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA CONFIGS -->
+    <div class="tab configuracoes" data-group="primary" data-tab="configuracoes">
+      <div class="sns-box">
+        <h2>⚙️ CONFIGURAÇÕES DA FICHA</h2>
+        <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">
+          <div style="border: 1px solid #b8b0a1; border-radius: 5px; background: rgba(255,255,255,0.3); padding: 10px;">
+            <h3 style="border-bottom: 1px solid #b8b0a1; font-size: 14px;">Regras de Progressão (Poderes)</h3>
+            <div style="display: flex; gap: 15px;">
+              <label><input type="checkbox" name="system.configuracoes.regraTresPontos" {{checked system.configuracoes.regraTresPontos}} data-dtype="Boolean"> 3 Pontos</label>
+              <label><input type="checkbox" name="system.configuracoes.regraQuatroPontos" {{checked system.configuracoes.regraQuatroPontos}} data-dtype="Boolean"> 4 Pontos</label>
+            </div>
+          </div>
+          <div style="border: 1px solid #b8b0a1; border-radius: 5px; background: rgba(255,255,255,0.3); padding: 10px;">
+            <h3 style="border-bottom: 1px solid #b8b0a1; font-size: 14px;">Aptidões Não Restritas</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
+              <label><input type="checkbox" name="system.configuracoes.acuidade" {{checked system.configuracoes.acuidade}}> Acuidade (CC usa DES)</label>
+              <label><input type="checkbox" name="system.configuracoes.combateDefensivo" {{checked system.configuracoes.combateDefensivo}}> Combate Defensivo (-2 CC, +3 Esq)</label>
+              <label><input type="checkbox" name="system.configuracoes.diligente" {{checked system.configuracoes.diligente}}> Diligente (+3 Ini)</label>
+              <label><input type="checkbox" name="system.configuracoes.quimico" {{checked system.configuracoes.quimico}}> Químico (Desbloqueia Venefício)</label>
+              <label><input type="checkbox" name="system.configuracoes.velocista" {{checked system.configuracoes.velocista}}> Velocista (Deslocamento /1)</label>
+              <label><input type="checkbox" name="system.configuracoes.shunjutsu1" {{checked system.configuracoes.shunjutsu1}}> Shunjutsu Nv 1 (Desloc. usa ESP)</label>
+              <label><input type="checkbox" name="system.configuracoes.burroCarga" {{checked system.configuracoes.burroCarga}}> Burro de Carga (Aumenta Inventário)</label>
+            </div>
+          </div>
+          <div style="border: 1px solid #b8b0a1; border-radius: 5px; background: rgba(255,255,255,0.3); padding: 10px;">
+            <h3 style="border-bottom: 1px solid #b8b0a1; font-size: 14px;">Condições Simples</h3>
+            <label><input type="checkbox" name="system.configuracoes.acelerado" {{checked system.configuracoes.acelerado}}> Acelerado (+2 Ini, Deslocamento /1)</label>
+          </div>
+          <div style="border: 1px solid #b8b0a1; border-radius: 5px; background: rgba(255,255,255,0.3); padding: 10px;">
+            <h3 style="border-bottom: 1px solid #b8b0a1; font-size: 14px;">Aptidões e Condições Restritas</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
+              <label><input type="checkbox" name="system.configuracoes.armaduraOssea" {{checked system.configuracoes.armaduraOssea}}> Armadura Óssea (+ Dureza por VIG)</label>
+              <label><input type="checkbox" name="system.configuracoes.byakugou" {{checked system.configuracoes.byakugou}}> Byakugou no In (-15 Chakra)</label>
+              <label><input type="checkbox" name="system.configuracoes.chakraExpandido" {{checked system.configuracoes.chakraExpandido}}> Chakra Expandido (+50% Chakra)</label>
+              <label><input type="checkbox" name="system.configuracoes.cloneReserva" {{checked system.configuracoes.cloneReserva}}> Clone Reserva (-3 Vit, -5 Chakra)</label>
+              <label><input type="checkbox" name="system.configuracoes.controlePerfeito1" {{checked system.configuracoes.controlePerfeito1}}> Cont. Perfeito Nv 1 (Chakra = INT)</label>
+              <label><input type="checkbox" name="system.configuracoes.controlePerfeito2" {{checked system.configuracoes.controlePerfeito2}}> Cont. Perfeito Nv 2 (+INT Chakra)</label>
+              <label><input type="checkbox" name="system.configuracoes.corpulencia" {{checked system.configuracoes.corpulencia}}> Corpulência (+VIGx3 Vitalidade)</label>
+              <label><input type="checkbox" name="system.configuracoes.furtividadePerceptiva" {{checked system.configuracoes.furtividadePerceptiva}}> Furtiv. Perceptiva (Usa PER)</label>
+              <label><input type="checkbox" name="system.configuracoes.mantoBijuu" {{checked system.configuracoes.mantoBijuu}}> Manto Bijuu (+1 Dureza)</label>
+              <label><input type="checkbox" name="system.configuracoes.modoBijuu" {{checked system.configuracoes.modoBijuu}}> Modo Bijuu (+2 AGI, +2 Dureza)</label>
+              <label><input type="checkbox" name="system.configuracoes.formaBijuu" {{checked system.configuracoes.formaBijuu}}> Forma Bijuu (+3 Dureza)</label>
+              <label><input type="checkbox" name="system.configuracoes.predadorAquatico" {{checked system.configuracoes.predadorAquatico}}> Predador Aquático (+ Dureza por VIG)</label>
+              <label><input type="checkbox" name="system.configuracoes.resiliencia" {{checked system.configuracoes.resiliencia}}> Resiliência (+Dureza, -Desloc, -Esq)</label>
+              <label><input type="checkbox" name="system.configuracoes.resistenciaInsaciavel" {{checked system.configuracoes.resistenciaInsaciavel}}> Resis. Insaciável (+ Dureza por VIG)</label>
+              <label><input type="checkbox" name="system.configuracoes.rinnegan" {{checked system.configuracoes.rinnegan}}> Rinnegan (-10% Chakra)</label>
+              <label><input type="checkbox" name="system.configuracoes.sharinganEsquiva" {{checked system.configuracoes.sharinganEsquiva}}> Sharingan (Esquiva = Ler Mov.)</label>
+              <label><input type="checkbox" name="system.configuracoes.shykakyu" {{checked system.configuracoes.shykakyu}}> Shykakyu (+1 Intimidar, +2 Ini)</label>
+            </div>
+          </div>
+          
+          <div style="border: 1px solid #b8b0a1; border-radius: 5px; background: rgba(255,255,255,0.3); padding: 10px;">
+            <h3 style="border-bottom: 1px solid #b8b0a1; font-size: 14px;">Recurso Extra (Máx. 1)</h3>
+            <div style="display: flex; gap: 15px; align-items: center;">
+              <select name="system.recursoExtra.ativo" style="padding: 3px; border-radius: 3px; border: 1px solid #b8b0a1; background: transparent;">
+                <option value="nenhum" {{#if recIsNenhum}}selected{{/if}}>Nenhum</option>
+                <option value="jashin" {{#if recIsJashin}}selected{{/if}}>Boneco de Jashin</option>
+                <option value="kikaichuu" {{#if recIsKikaichuu}}selected{{/if}}>Kikaichuu (Aburame)</option>
+                <option value="kamiArte" {{#if recIsKamiArte}}selected{{/if}}>Pontos Kami (Arte)</option>
+                <option value="kamiEsp" {{#if recIsKamiEsp}}selected{{/if}}>Pontos Kami (Espírito)</option>
+                <option value="mangekyou" {{#if recIsMangekyou}}selected{{/if}}>Pontos de Visão Mangekyou</option>
+                <option value="kujaku" {{#if recIsKujaku}}selected{{/if}}>Pontos de Saúde Kujaku</option>
+                <option value="suika" {{#if recIsSuika}}selected{{/if}}>Pontos Suika (Hozuki)</option>
+              </select>
+              <label>Cor (HEX):</label>
+              <input type="color" name="system.recursoExtra.cor" value="{{system.recursoExtra.cor}}" style="height: 25px; border: none; padding: 0; background: transparent; cursor: pointer;"/>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+</form>
