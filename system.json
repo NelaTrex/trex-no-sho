@@ -2,7 +2,7 @@
   "id": "trex-no-sho",
   "title": "Trex no Sho",
   "description": "Sistema melhorado para Shinobi no Sho",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "compatibility": {
     "minimum": "11",
     "verified": "13"
@@ -16,5 +16,5 @@
     "module/shinobi.js"
   ],
   "manifest": "https://raw.githubusercontent.com/NelaTrex/trex-no-sho/refs/heads/main/system.json",
-  "download": "https://github.com/user-attachments/files/28444708/trex-no-sho.zip"
+  "download": "https://github.com/SEU_USUARIO/NOME_DO_REPOSITORIO/releases/latest/download/system.zip"
 }
